@@ -1,3 +1,7 @@
+## 1.0.1
+
+- Add documentação para métodos de validação
+
 ## 1.0.0
 
 - Validador de CPF
