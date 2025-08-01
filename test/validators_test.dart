@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:validators_brasil/validators.dart';
+import 'package:validators_brasil/validators_brasil.dart';
 
 void main() {
   group('isChavePix', () {

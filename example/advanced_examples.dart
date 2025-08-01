@@ -1,4 +1,4 @@
-import 'package:validators_brasil/validators.dart';
+import 'package:validators_brasil/validators_brasil.dart';
 
 /// Exemplo de uma classe para validação de cadastro de pessoa física
 class ValidadorPessoaFisica {
