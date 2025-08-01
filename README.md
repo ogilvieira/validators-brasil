@@ -1,39 +1,4 @@
-# Exemplos de Uso - Validators Brasil
-
-Esta pasta contém exemplos práticos de como usar a biblioteca `validators_brasil` em diferentes cenários.
-
-## Arquivos de Exemplo
-
-### 📁 `main.dart`
-Exemplos básicos de todos os validadores disponíveis, incluindo:
-- **CPF** - Cadastro de Pessoa Física
-- **CNPJ** - Cadastro Nacional da Pessoa Jurídica
-- **CEP** - Código de Endereçamento Postal
-- **CNH** - Carteira Nacional de Habilitação
-- **RENAVAM** - Registro Nacional de Veículos Automotores
-- **UF** - Unidade Federativa
-- **Chave PIX** - Chave UUID v4 para PIX
-- **PIS/PASEP** - Programa de Integração Social/Programa de Formação do Patrimônio do Servidor Público
-
-### 📁 `advanced_examples.dart`
-Exemplos avançados com casos de uso práticos:
-- Validação de cadastro de pessoa física
-- Validação de cadastro de pessoa jurídica
-- Validação de dados de veículos
-- Classes utilitárias para validação
-- Tratamento de erros e múltiplas validações
-
-## Como Executar
-
-Para executar os exemplos, certifique-se de que você tem o Dart instalado e execute:
-
-```bash
-# Exemplo básico
-dart run example/main.dart
-
-# Exemplos avançados
-dart run example/advanced_examples.dart
-```
+Validators Brasil é um conjunto de métodos para validação de Strings de dados brasileiros com zero dependências
 
 ## Validadores Disponíveis
 
@@ -109,17 +74,23 @@ bool validarPessoa(String documento) {
 }
 ```
 
-### Limpeza de Dados
-```dart
-String limparDocumento(String documento) {
-  return documento.replaceAll(RegExp(r'[^\d]'), '');
-}
-```
+## Arquivos de Exemplo
 
-## Contribuindo
+### 📁 `main.dart`
+Exemplos básicos de todos os validadores disponíveis, incluindo:
+- **CPF** - Cadastro de Pessoa Física
+- **CNPJ** - Cadastro Nacional da Pessoa Jurídica
+- **CEP** - Código de Endereçamento Postal
+- **CNH** - Carteira Nacional de Habilitação
+- **RENAVAM** - Registro Nacional de Veículos Automotores
+- **UF** - Unidade Federativa
+- **Chave PIX** - Chave UUID v4 para PIX
+- **PIS/PASEP** - Programa de Integração Social/Programa de Formação do Patrimônio do Servidor Público
 
-Para contribuir com novos exemplos:
-1. Crie um novo arquivo `.dart` na pasta `example/`
-2. Documente o caso de uso
-3. Inclua exemplos de dados válidos e inválidos
-4. Atualize este README
+### 📁 `advanced_examples.dart`
+Exemplos avançados com casos de uso práticos:
+- Validação de cadastro de pessoa física
+- Validação de cadastro de pessoa jurídica
+- Validação de dados de veículos
+- Classes utilitárias para validação
+- Tratamento de erros e múltiplas validações

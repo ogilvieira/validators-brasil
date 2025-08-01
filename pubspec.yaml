@@ -1,12 +1,10 @@
 name: validators_brasil
-description: Validação de Strings para dados brasileiros.
+description: Validators Brasil é um conjunto de métodos para validação de Strings de dados brasileiros com zero dependências
 version: 1.0.0
 repository: https://github.com/ogilvieira/validators-brasil
 
 environment:
   sdk: '>=2.12.0'
-
-dependencies:
 
 dev_dependencies:
   test: ^1.24.0
