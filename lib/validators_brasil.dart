@@ -1,3 +1,6 @@
+/// Validates a Brazilian CPF number.
+///
+/// Returns `true` if the given [cpf] is valid, otherwise returns `false`.
 bool isCPF(String cpf) {
   cpf = cpf.replaceAll(RegExp(r'[\.\-\/]+'), '');
 
@@ -30,6 +33,9 @@ bool isCPF(String cpf) {
   return true;
 }
 
+/// Validates a Brazilian CNPJ number.
+///
+/// Returns `true` if the given [cnpj] is valid, otherwise returns `false`.
 bool isCNPJ(String cnpj) {
   cnpj = cnpj.replaceAll(RegExp(r'[\.\-\/]+'), '');
   if (cnpj.length != 14 || !RegExp(r'^\d+$').hasMatch(cnpj)) {
@@ -67,10 +73,16 @@ bool isCNPJ(String cnpj) {
   return secondCheckDigit == int.parse(cnpj[13]);
 }
 
+/// Validates a Brazilian CEP (postal code).
+///
+/// Returns `true` if the given [cep] is valid, otherwise returns `false`.
 bool isCEP(String cep) {
   return RegExp(r'^\d{5}-?\d{3}$').hasMatch(cep);
 }
 
+/// Validates a Brazilian CNH (driver's license) number.
+///
+/// Returns `true` if the given [cnh] is valid, otherwise returns `false`.
 bool isCNH(String cnh) {
   cnh = cnh.replaceAll(RegExp(r'[\.\-\/]+'), '');
   if (cnh.isEmpty ||
@@ -118,6 +130,9 @@ bool isCNH(String cnh) {
   return true;
 }
 
+/// Validates a Brazilian RENAVAM (vehicle registration) number.
+///
+/// Returns `true` if the given [renavam] is valid, otherwise returns `false`.
 bool isRenavam(String renavam) {
   if (renavam.isEmpty ||
       renavam.length != 11 ||
@@ -142,6 +157,9 @@ bool isRenavam(String renavam) {
   return dig == (digValid >= 10 ? 0 : digValid);
 }
 
+/// Validates if the given [uf] is a valid Brazilian state abbreviation (UF).
+///
+/// Returns `true` if [uf] is a valid UF, otherwise returns `false`.
 bool isUF(String uf) {
   const validUFs = [
     'AC',
@@ -175,12 +193,18 @@ bool isUF(String uf) {
   return validUFs.contains(uf.toUpperCase());
 }
 
+/// Validates a Brazilian Pix key in UUID format.
+///
+/// Returns `true` if the given [chave] matches the Pix UUID pattern, otherwise returns `false`.
 bool isChavePix(String chave) {
   return RegExp(
     r'^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
   ).hasMatch(chave);
 }
 
+/// Validates a Brazilian PIS/PASEP number.
+///
+/// Returns `true` if the given [pis] is valid, otherwise returns `false`.
 bool isPisPasep(String pis) {
   pis = pis.replaceAll(RegExp(r'\D'), '');
   if (pis.length != 11) {
