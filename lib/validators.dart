@@ -1,39 +1,42 @@
 bool isCPF(String cpf) {
-  if (cpf.length != 11 || !RegExp(r'^\d+$').hasMatch(cpf)) {
+  cpf = cpf.replaceAll(RegExp(r'[\.\-\/]+'), '');
+
+  if (cpf.isEmpty ||
+      cpf.length != 11 ||
+      RegExp(r'^(\d)\1{10}$').hasMatch(cpf)) {
     return false;
   }
+
+  cpf = cpf.replaceAll(RegExp(r'\D'), '');
 
   int sum = 0;
-  int weight = 10;
+  int remainder;
 
-  for (int i = 0; i < 9; i++) {
-    sum += int.parse(cpf[i]) * weight--;
+  for (int i = 1; i <= 9; i++) {
+    sum += int.parse(cpf[i - 1]) * (11 - i);
   }
-
-  int firstCheckDigit = (sum * 10) % 11;
-  if (firstCheckDigit == 10) firstCheckDigit = 0;
-
-  if (firstCheckDigit != int.parse(cpf[9])) {
-    return false;
-  }
+  remainder = (sum * 10) % 11;
+  if (remainder == 10 || remainder == 11) remainder = 0;
+  if (remainder != int.parse(cpf[9])) return false;
 
   sum = 0;
-  weight = 11;
-
-  for (int i = 0; i < 10; i++) {
-    sum += int.parse(cpf[i]) * weight--;
+  for (int i = 1; i <= 10; i++) {
+    sum += int.parse(cpf[i - 1]) * (12 - i);
   }
+  remainder = (sum * 10) % 11;
+  if (remainder == 10 || remainder == 11) remainder = 0;
+  if (remainder != int.parse(cpf[10])) return false;
 
-  int secondCheckDigit = (sum * 10) % 11;
-  if (secondCheckDigit == 10) secondCheckDigit = 0;
-
-  return secondCheckDigit == int.parse(cpf[10]);
+  return true;
 }
 
 bool isCNPJ(String cnpj) {
+  cnpj = cnpj.replaceAll(RegExp(r'[\.\-\/]+'), '');
   if (cnpj.length != 14 || !RegExp(r'^\d+$').hasMatch(cnpj)) {
     return false;
   }
+
+  cnpj = cnpj.replaceAll(RegExp(r'\D'), '');
 
   int sum = 0;
   int weight = 5;
@@ -76,6 +79,11 @@ bool isCNH(String cnh) {
     return false;
   }
 
+  cnh = cnh.replaceAll(RegExp(r'\D'), '');
+  if (cnh.length != 11) {
+    return false;
+  }
+
   int factor = 9;
   int sumDv1 = 0;
   int aux = 0;
@@ -111,22 +119,27 @@ bool isCNH(String cnh) {
 }
 
 bool isRenavam(String renavam) {
-  if (renavam.length != 11 || !RegExp(r'^\d+$').hasMatch(renavam)) {
+  if (renavam.isEmpty ||
+      renavam.length != 11 ||
+      RegExp(r'\D').hasMatch(renavam)) {
     return false;
   }
 
-  int sum = 0;
-  int weight = 2;
+  renavam = renavam.replaceAll(RegExp(r'\D'), '');
 
-  for (int i = renavam.length - 2; i >= 0; i--) {
-    sum += int.parse(renavam[i]) * weight++;
-    if (weight > 9) weight = 2;
+  List<int> valueArr = renavam.split('').map(int.parse).toList();
+  int factor = 2;
+  int sum = 0;
+  int dig = valueArr[10];
+
+  for (int i = 0; i <= 9; i++) {
+    sum += valueArr[9 - i] * factor;
+    factor = (factor == 9) ? 2 : factor + 1;
   }
 
-  int checkDigit = (sum * 10) % 11;
-  if (checkDigit == 10) checkDigit = 0;
+  int digValid = 11 - (sum % 11);
 
-  return checkDigit == int.parse(renavam[10]);
+  return dig == (digValid >= 10 ? 0 : digValid);
 }
 
 bool isUF(String uf) {
@@ -169,7 +182,8 @@ bool isChavePix(String chave) {
 }
 
 bool isPisPasep(String pis) {
-  if (pis.length != 11 || !RegExp(r'^\d+$').hasMatch(pis)) {
+  pis = pis.replaceAll(RegExp(r'\D'), '');
+  if (pis.length != 11) {
     return false;
   }
 
@@ -185,99 +199,4 @@ bool isPisPasep(String pis) {
   if (checkDigit == 10) checkDigit = 0;
 
   return checkDigit == int.parse(pis[10]);
-}
-
-bool isRG(String rg) {
-  if (rg.length < 8 || rg.length > 10 || !RegExp(r'^\d+$').hasMatch(rg)) {
-    return false;
-  }
-
-  int sum = 0;
-  int weight = rg.length - 1;
-
-  for (int i = 0; i < rg.length - 1; i++) {
-    sum += int.parse(rg[i]) * weight--;
-    if (weight < 2) weight = rg.length - 1;
-  }
-
-  int checkDigit = sum % 11;
-  if (checkDigit == 10) checkDigit = 0;
-
-  return checkDigit == int.parse(rg[rg.length - 1]);
-}
-
-bool isTituloEleitoral(String titulo) {
-  if (titulo.length != 12 || !RegExp(r'^\d+$').hasMatch(titulo)) {
-    return false;
-  }
-
-  int sum = 0;
-  int weight = 2;
-
-  for (int i = titulo.length - 2; i >= 0; i--) {
-    sum += int.parse(titulo[i]) * weight++;
-    if (weight > 9) weight = 2;
-  }
-
-  int checkDigit = (sum * 10) % 11;
-  if (checkDigit == 10) checkDigit = 0;
-
-  return checkDigit == int.parse(titulo[11]);
-}
-
-bool isCertidaoDeNascimento(String certidao) {
-  if (certidao.length != 15 || !RegExp(r'^\d+$').hasMatch(certidao)) {
-    return false;
-  }
-
-  int sum = 0;
-  int weight = 2;
-
-  for (int i = certidao.length - 2; i >= 0; i--) {
-    sum += int.parse(certidao[i]) * weight++;
-    if (weight > 9) weight = 2;
-  }
-
-  int checkDigit = (sum * 10) % 11;
-  if (checkDigit == 10) checkDigit = 0;
-
-  return checkDigit == int.parse(certidao[14]);
-}
-
-bool isCNS(String cns) {
-  if (cns.length != 15 || !RegExp(r'^\d+$').hasMatch(cns)) {
-    return false;
-  }
-
-  int sum = 0;
-  int weight = 2;
-
-  for (int i = cns.length - 2; i >= 0; i--) {
-    sum += int.parse(cns[i]) * weight++;
-    if (weight > 9) weight = 2;
-  }
-
-  int checkDigit = (sum * 10) % 11;
-  if (checkDigit == 10) checkDigit = 0;
-
-  return checkDigit == int.parse(cns[14]);
-}
-
-bool isNIF(String nif) {
-  if (nif.length != 9 || !RegExp(r'^\d+$').hasMatch(nif)) {
-    return false;
-  }
-
-  int sum = 0;
-  int weight = 2;
-
-  for (int i = nif.length - 2; i >= 0; i--) {
-    sum += int.parse(nif[i]) * weight++;
-    if (weight > 9) weight = 2;
-  }
-
-  int checkDigit = (sum * 10) % 11;
-  if (checkDigit == 10) checkDigit = 0;
-
-  return checkDigit == int.parse(nif[8]);
 }
